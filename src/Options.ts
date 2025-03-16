@@ -1,7 +1,4 @@
-import {
-  CreateOptionsType,
-  CreatePluginType,
-} from 'embla-carousel';
+import { CreateOptionsType, CreatePluginType } from 'embla-carousel';
 
 declare module 'embla-carousel' {
   export interface EmblaPluginsType {

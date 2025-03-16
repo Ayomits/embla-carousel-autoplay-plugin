@@ -1,2 +1,2 @@
-export * from './AutoPlay'
-export * from './Options'
+export * from './AutoPlay';
+export * from './Options';
