@@ -1,0 +1,25 @@
+name: Format
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  run-formatters:
+    name: format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.18.2
+      - name: Install dependencies
+        run: yarn install
+      - name: Run linters
+        run: yarn format:check
