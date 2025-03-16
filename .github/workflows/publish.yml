@@ -32,7 +32,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-artifact
           path: dist/
 
   run-publish:
@@ -51,7 +51,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          registry-url: "https://registry.npmjs.org/"
+          registry-url: 'https://registry.npmjs.org/'
           cache: yarn
 
       - name: Install required packages
@@ -60,13 +60,13 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist
+          name: dist-artifact
           path: dist/
 
       - name: Bump package version
         run: yarn version --no-git-tag-version --patch
 
       - name: Publish to npm
-        run: yarn publish --tag dev || true
+        run: yarn publish --tag latest || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
