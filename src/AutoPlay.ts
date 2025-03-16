@@ -1,5 +1,6 @@
 import { AutoPlayOptionsType, AutoplayType, defaultOptions } from './Options';
 import { EmblaCarouselType, OptionsHandlerType } from 'embla-carousel';
+import { getAutoplayRootNode } from '@/Utils';
 
 const AutoPlay = (
   userOptions: Partial<AutoPlayOptionsType> = {}
@@ -21,19 +22,80 @@ const AutoPlay = (
     optionsHandler: OptionsHandlerType
   ) => {
     emblaApi = emblaApiInstance;
-    if (emblaApi.scrollSnapList().length <= 1) return;
-
     const { mergeOptions, optionsAtMedia } = optionsHandler;
+    const { eventStore } = emblaApi.internalEngine();
     const optionsBase = mergeOptions(defaultOptions, AutoPlay.globalOptions);
     const allOptions = mergeOptions(optionsBase, userOptions);
 
+    const root = getAutoplayRootNode(emblaApi, options.rootNode);
+
     Object.assign(options, optionsAtMedia(allOptions));
+
+    // Pause actions
+    if (options.pauseOnMouseEnter) {
+      eventStore.add(root, 'mouseenter', pause);
+      if (options.revertOnEvent) {
+        eventStore.add(root, 'mouseleave', resume);
+      }
+    }
+
+    if (options.pauseOnClick) {
+      eventStore.add(root, 'click', () => {
+        if (isPaused) {
+          resume();
+        } else if (options.revertOnEvent) {
+          pause();
+        }
+      });
+    }
+
+    if (options.pauseOnFocusIn) {
+      eventStore.add(root, 'focusin', pause);
+      if (options.revertOnEvent) {
+        eventStore.add(root, 'focusout', resume);
+      }
+    }
+
+    // Stop actions
+    if (options.stopOnMouseEnter) {
+      eventStore.add(root, 'mouseenter', stop);
+      if (options.revertOnEvent) {
+        eventStore.add(root, 'mouseleave', resume);
+      }
+    }
+
+    if (options.stopOnClick) {
+      eventStore.add(root, 'click', () => {
+        if (isPaused) {
+          stop();
+        } else if (options.revertOnEvent) {
+          resume();
+        }
+      });
+    }
+
+    if (options.stopOnFocusIn) {
+      eventStore.add(root, 'focusin', stop);
+      if (options.revertOnEvent) {
+        eventStore.add(root, 'focusout', resume);
+      }
+    }
+
     if (options.playOnInit) {
       start();
     }
   };
 
-  const destroy = () => {};
+  const destroyEvents = () => {
+    if (!emblaApi) return;
+    const { eventStore } = emblaApi.internalEngine();
+    eventStore.clear();
+  };
+
+  const destroy = () => {
+    stop();
+    destroyEvents();
+  };
 
   const start = () => {
     clearTimeout(timer);

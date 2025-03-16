@@ -13,7 +13,8 @@
   "scripts": {
     "format:check": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
-    "types:check": "tsc --noEmit --pretty"
+    "types:check": "tsc --noEmit --pretty",
+    "build": "tsc --build"
   },
   "peerDependencies": {
     "embla-carousel": "^8.5.2"

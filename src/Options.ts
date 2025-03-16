@@ -1,5 +1,7 @@
 import { CreateOptionsType, CreatePluginType } from 'embla-carousel';
 
+type RootNodeType = null | ((emblaRoot: HTMLElement) => HTMLElement | null);
+
 declare module 'embla-carousel' {
   export interface EmblaPluginsType {
     autoplay: AutoplayType;
@@ -15,10 +17,22 @@ declare module 'embla-carousel' {
 }
 
 type AutoPlayOptionsType = CreateOptionsType<{
-  delay?: number;
-  usePauseOnMouseEnter?: boolean;
-  usePauseOnInteraction?: boolean;
-  playOnInit?: boolean;
+  delay: number;
+
+  pauseOnMouseEnter: boolean;
+  pauseOnClick: boolean;
+  pauseOnFocusIn: boolean;
+  pauseOnLastSnap: boolean;
+
+  stopOnFocusIn: boolean
+  stopOnClick: boolean
+  stopOnMouseEnter: boolean
+  stopOnLastSnap: boolean
+
+  revertOnEvent: boolean;
+
+  playOnInit: boolean;
+  rootNode: RootNodeType;
 }>;
 
 type AutoplayType = CreatePluginType<
@@ -37,9 +51,20 @@ type AutoplayType = CreatePluginType<
 
 const defaultOptions = {
   delay: 4_000,
-  usePauseOnMouseEnter: false,
-  usePauseOnInteraction: false,
+
+  pauseOnMouseEnter: false,
+  pauseOnClick: false,
+  pauseOnFocusIn: false,
+  pauseOnLastSnap: false,
+
+  stopOnFocusIn: false,
+  stopOnClick: false,
+  stopOnMouseEnter: false,
+  stopOnLastSnap: false,
+
   playOnInit: true,
+
+  revertOnEvent: true,
 };
 
-export { AutoPlayOptionsType, AutoplayType, defaultOptions };
+export { AutoPlayOptionsType, AutoplayType, RootNodeType, defaultOptions };
