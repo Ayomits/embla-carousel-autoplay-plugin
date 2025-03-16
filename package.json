@@ -1,0 +1,28 @@
+{
+  "name": "embla-carousel-autoplay-plugin",
+  "version": "0.0.0",
+  "description": "Embla carousel autoplay extended plugin",
+  "main": "index.js",
+  "repository": "https://github.com/Ayomits/embla-carousel-autoplay-plugin",
+  "author": "Ayo",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "format:check": "prettier --check ./src",
+    "format:fix": "prettier --write ./src",
+    "types:check": "tsc --noEmit --pretty",
+    "build": "tsc --build"
+  },
+  "peerDependencies": {
+    "embla-carousel": "^8.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "embla-carousel": "^8.5.2",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
