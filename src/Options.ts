@@ -24,10 +24,10 @@ type AutoPlayOptionsType = CreateOptionsType<{
   pauseOnFocusIn: boolean;
   pauseOnLastSnap: boolean;
 
-  stopOnFocusIn: boolean
-  stopOnClick: boolean
-  stopOnMouseEnter: boolean
-  stopOnLastSnap: boolean
+  stopOnFocusIn: boolean;
+  stopOnClick: boolean;
+  stopOnMouseEnter: boolean;
+  stopOnLastSnap: boolean;
 
   revertOnEvent: boolean;
 

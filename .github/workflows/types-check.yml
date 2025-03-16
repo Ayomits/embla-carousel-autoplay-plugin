@@ -10,8 +10,8 @@ on:
       - main
 
 jobs:
-  run-formatters:
-    name: format
+  run-checkers:
+    name: types-check
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository

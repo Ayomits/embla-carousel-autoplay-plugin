@@ -10,8 +10,8 @@ on:
       - main
 
 jobs:
-  run-formatters:
-    name: format
+  run-builder:
+    name: builder
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
