@@ -34,6 +34,6 @@ jobs:
         run: yarn version --no-git-tag-version --patch
 
       - name: Publish to npm
-        run: yarn npm publish --tag dev || true
+        run: yarn publish --tag dev || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
