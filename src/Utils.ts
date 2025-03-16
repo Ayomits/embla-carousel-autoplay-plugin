@@ -1,5 +1,5 @@
 import { EmblaCarouselType } from 'embla-carousel/components/EmblaCarousel';
-import { RootNodeType } from '@/Options';
+import { RootNodeType } from './Options';
 
 function getAutoplayRootNode(
   emblaApi: EmblaCarouselType,

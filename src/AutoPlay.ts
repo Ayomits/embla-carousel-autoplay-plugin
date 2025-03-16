@@ -1,6 +1,6 @@
 import { AutoPlayOptionsType, AutoplayType, defaultOptions } from './Options';
 import { EmblaCarouselType, OptionsHandlerType } from 'embla-carousel';
-import { getAutoplayRootNode } from '@/Utils';
+import { getAutoplayRootNode } from './Utils';
 
 const AutoPlay = (
   userOptions: Partial<AutoPlayOptionsType> = {}
