@@ -195,7 +195,6 @@ const AutoPlay = (
 
     timer = setTimeout(() => {
       if (isPaused) {
-        console.log('isPaused');
         return;
       }
 
@@ -209,7 +208,7 @@ const AutoPlay = (
 
       elapsedTime = 0;
       play();
-    }, options?.delay ?? 0);
+    }, options?.delay - elapsedTime);
 
     emblaApi.emit('autoplay:play');
   };
