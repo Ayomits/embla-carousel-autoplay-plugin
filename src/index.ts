@@ -109,13 +109,18 @@ const AutoPlay = (
 
     emblaApi.on('select', () => {
       clearTimer();
+      isPlaying = false;
+      isPaused = false;
+      isStopped = false;
+      elapsedTime = 0;
+      startTime = 0;
       play();
     });
 
     Object.assign(options, optionsAtMedia(allOptions));
 
     if (options.delay <= 0) {
-      throw new Error("Delay must be greater than 0");
+      throw new Error('Delay must be greater than 0');
     }
 
     // Pause actions
@@ -186,14 +191,13 @@ const AutoPlay = (
 
   const clearTimer = () => {
     clearTimeout(timer);
-    isPlaying = false;
-    isPaused = false;
-    isStopped = false;
   };
 
   const play = () => {
     clearTimer();
-    if (isStopped || isPaused || isPlaying) return;
+    if (isPaused) {
+      return;
+    }
 
     isPlaying = true;
     startTime = Date.now() - elapsedTime;
@@ -202,19 +206,15 @@ const AutoPlay = (
       if (isPaused) {
         return;
       }
-
       isPlaying = false;
-
       if (!emblaApi?.canScrollNext()) {
         emblaApi?.scrollTo(0);
       } else {
         emblaApi?.scrollNext();
       }
-
-      elapsedTime = 0;
       play();
     }, options?.delay - elapsedTime);
-
+    elapsedTime = 0;
     emblaApi.emit('autoplay:play');
   };
 

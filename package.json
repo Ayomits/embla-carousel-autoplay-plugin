@@ -1,6 +1,6 @@
 {
   "name": "embla-carousel-autoplay-plugin",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Embla carousel autoplay extended plugin",
   "main": "dist/index.js",
   "repository": "https://github.com/Ayomits/embla-carousel-autoplay-plugin",
