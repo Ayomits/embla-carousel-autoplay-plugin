@@ -113,6 +113,11 @@ const AutoPlay = (
     });
 
     Object.assign(options, optionsAtMedia(allOptions));
+
+    if (options.delay <= 0) {
+      throw new Error("Delay must be greater than 0");
+    }
+
     // Pause actions
     if (options.pauseOnMouseEnter) {
       eventStore.add(root, 'mouseenter', pause);
