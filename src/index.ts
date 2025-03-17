@@ -13,7 +13,7 @@ declare module 'embla-carousel' {
   }
 
   export interface EmblaEventListType {
-    autoplayStart: 'autoplay:start';
+    autoplayPlay: 'autoplay:play';
     autoplayStop: 'autoplay:stop';
     autoplayPause: 'autoplay:pause';
     autoplayResume: 'autoplay:resume';
@@ -109,7 +109,7 @@ const AutoPlay = (
 
     emblaApi.on('select', () => {
       clearTimer();
-      start();
+      play();
     });
 
     Object.assign(options, optionsAtMedia(allOptions));
@@ -164,7 +164,7 @@ const AutoPlay = (
     }
 
     if (options.playOnInit) {
-      start();
+      play();
     }
   };
 
@@ -186,7 +186,7 @@ const AutoPlay = (
     isStopped = false;
   };
 
-  const start = () => {
+  const play = () => {
     clearTimer();
     if (isStopped || isPaused || isPlaying) return;
 
@@ -208,10 +208,10 @@ const AutoPlay = (
       }
 
       elapsedTime = 0;
-      start();
+      play();
     }, options?.delay ?? 0);
 
-    emblaApi.emit('autoplay:start');
+    emblaApi.emit('autoplay:play');
   };
 
   const stop = () => {
@@ -238,13 +238,13 @@ const AutoPlay = (
     } else {
       isPaused = false;
     }
-    start();
+    play();
     emblaApi.emit('autoplay:resume');
   };
 
   const reset = () => {
     stop();
-    start();
+    play();
     emblaApi.emit('autoplay:reset');
   };
 
@@ -253,7 +253,7 @@ const AutoPlay = (
     options: options,
     init,
     destroy,
-    start,
+    start: play,
     stop,
     pause,
     resume,
